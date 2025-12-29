@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ozgurdemirel
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE books (
+                  id BIGSERIAL PRIMARY KEY,
+                  title VARCHAR(255) NOT NULL,
+                  author VARCHAR(255) NOT NULL,
+                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+              );
+
+              CREATE TABLE reviews (
+                  id BIGSERIAL PRIMARY KEY,
+                  book_id BIGINT NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+                  review TEXT NOT NULL,
+                  rating INTEGER NOT NULL,
+                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+              );
